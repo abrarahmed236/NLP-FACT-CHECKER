@@ -25,7 +25,7 @@ qterms = [stemmer.stem(qterm) for qterm in qterms]
 tf_qterms = {}
 tf_qterms = Counter(qterms)
 
-
+'logging'
 tf_wt = {}    
 for term in tf_qterms:
     print(term)
