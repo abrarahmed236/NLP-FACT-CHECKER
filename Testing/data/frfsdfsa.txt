@@ -1,0 +1,1 @@
+f the result of the system but also on the time at which the result is produced. The example of the real-time system can be given as the chemical and nuclear plant control, space mission, flight control systems, military systems, telecommunications; multimedia systems and so on all make use of real-time technologies.

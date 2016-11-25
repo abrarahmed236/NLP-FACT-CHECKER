@@ -1,0 +1,1 @@
+Real-time systems are very important parts of our life now a day to day. In the last few decades, we have been studied the time aspect of computations. But in recent years it has increase exponentially among the researchers and research school. There has been an eye catching growth in the count of real-time systems. Being used in domestic and ind
