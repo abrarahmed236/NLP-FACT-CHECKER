@@ -15,7 +15,7 @@ tokenizer = RegexpTokenizer(r'[a-zA-Z]+')
 stemmer = PorterStemmer()
 qstring = 'Rajesh is a good boy. He loves playing football. Football is his life.'
 
-'tokenize, stop removal stem'
+'tokenize, stop removal, stem'
 qterms = tokenizer.tokenize(qstring)
 qterms = [qterm.lower() for qterm in qterms]
 qterms = [qterm for qterm in qterms if qterm not in stopwords]
@@ -25,9 +25,9 @@ qterms = [stemmer.stem(qterm) for qterm in qterms]
 tf_qterms = {}
 tf_qterms = Counter(qterms)
 
-'logging'
+'log normalization'
 tf_wt = {}    
 for term in tf_qterms:
-    print(term)
     tf_wt[term] = 1 + math.log10(tf_qterms[term])
-    print(tf_wt)
+
+'need tf-idf'
