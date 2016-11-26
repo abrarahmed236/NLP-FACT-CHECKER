@@ -7,8 +7,9 @@ from collections import Counter
 from collections import OrderedDict
 
 'Initializations'
-corpus_root = 'Data'
-#corpus_root = 'stateoftheunionaddresses'
+print('\n\nWorking: Inititialization')
+corpus_root = '../Data'
+#corpus_root = '../stateoftheunionaddresses'
 stopwords = stopwords.words('english')
 stopwords.sort()
 corpus = {}
@@ -18,7 +19,7 @@ tokenizer = RegexpTokenizer(r'[a-zA-Z]+')
 stemmer = PorterStemmer()
 
 'Reading Data'
-print('Reading Data files into a dictionary \n')
+print('Working: Reading Data files into a dictionary')
 for filename in os.listdir(corpus_root):
     file = open(os.path.join(corpus_root, filename), 'r')
     filetext = file.read()
@@ -26,7 +27,7 @@ for filename in os.listdir(corpus_root):
     corpus = OrderedDict(sorted(corpus.items(), key = lambda corpus: corpus[0]))
 
 'Tokenizing, Stemming and TF'
-print('Tokenizing, Stemming and TF\n')
+print('Working: Tokenizing, Stemming and TF')
 for filename in corpus:
     filetext = corpus[filename]
     terms = tokenizer.tokenize(filetext)
@@ -38,7 +39,7 @@ for filename in corpus:
     tf_dict[filename] = Counter(terms)
 
 'Finding IDF'
-print('Finding IDF of each word \n')
+print('Working: Finding IDF of each word')
 temp = tf_dict
 a = ' '
 for filename in tf_dict:
@@ -129,11 +130,24 @@ def cossim(query, filename):
 
 'Main Function'
 while 1:
-    Fact = input ("Enter Fact to be verified.\n")
+    Fact = input ("\n\nEnter Fact to be verified:-------------------\n")
     if Fact == 0:
         break
-    sum = 0
+    trueness = 0
     counter = 0
     for file in corpus:
-         cossim(Fact,file)
+        similarity =cossim(Fact,file)
+        #print("Similarity: ",similarity)
+        trueness += similarity
+        counter += 1
+    trueness /= counter
+    print("")
+    print("Trueness: ", trueness)
+    threshold = 0.04 # not true train this
+    if trueness >= threshold:
+        print("THE FACT IS TRUE")
+    else:
+    	print("THE FACT IS FALSE")
+    print("---------------------------------------------")
+
     
