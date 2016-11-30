@@ -9,7 +9,6 @@ from collections import OrderedDict
 'Initializations'
 print('\n\nWorking: Inititialization')
 corpus_root = '../Data'
-#corpus_root = '../stateoftheunionaddresses'
 stopwords = stopwords.words('english')
 stopwords.sort()
 corpus = {}
@@ -54,7 +53,7 @@ for filename in tf_dict:
         
         idf_dict[word] = math.log10(len(tf_dict) / float(count))
 
-'Getting string vector'
+'Getting string tf-idf vector'
 def getqvec(qstring):  
     qterms = tokenizer.tokenize(qstring)
     qterms = [qterm.lower() for qterm in qterms]
@@ -70,9 +69,9 @@ def getqvec(qstring):
         
     tf_idf_wt= {}
     for term in tf_wt:
-        if term in idf_dict:
+        try:
             tf_idf_wt[term] = tf_wt[term] * idf_dict[term]
-        else:
+        except KeyError:
             tf_idf_wt[term] = 0
         
     d = 0
@@ -131,23 +130,18 @@ def cossim(query, filename):
 'Main Function'
 while 1:
     Fact = input ("\n\nEnter Fact to be verified:-------------------\n")
-    if Fact == 0:
-        break
+    if Fact == "0":
+    	break
     trueness = 0
-    counter = 0
     for file in corpus:
         similarity =cossim(Fact,file)
-        #print("Similarity: ",similarity)
         trueness += similarity
-        counter += 1
-    trueness /= counter
-    print("")
+    trueness /= len(corpus)
     print("Trueness: ", trueness)
-    threshold = 0.04 # not true train this
+    threshold = 0.03 # based on limited data: train this based on bigger data set
     if trueness >= threshold:
         print("THE FACT IS TRUE")
     else:
     	print("THE FACT IS FALSE")
     print("---------------------------------------------")
-
     
